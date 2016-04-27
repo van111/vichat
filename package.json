@@ -1,0 +1,29 @@
+{
+  "name": "videochat",
+  "version": "1.0.0",
+  "description": "video chat using skyway rtc",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "app-root-path": "^1.0.0",
+    "approot": "^0.2.1",
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.15.0",
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "express-jwt": "^3.3.0",
+    "express-unless": "^0.3.0",
+    "https": "^1.0.0",
+    "jsonwebtoken": "^5.7.0",
+    "lodash": "^4.11.1",
+    "mysql": "^2.10.2",
+    "redis": "^2.5.3",
+    "sequelize": "^3.21.0",
+    "socket.io": "^1.4.5"
+  }
+}
