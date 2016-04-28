@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+  <body>
+    <script src="https://static.opentok.com/v2/js/opentok.js" charset="utf-8"></script>
+    <script charset="utf-8">
+      var apiKey = '45572472';
+      var sessionId = '2_MX40NTU3MjQ3Mn5-MTQ2MTYzODg0MTQyNn4vdG1ZVmhqQWg2S2FzTDU0QnNVamhwTkd-UH4';
+      var token = 'T1==cGFydG5lcl9pZD00NTU3MjQ3MiZzaWc9ZWY4MmI3YzRiODdlMTRkMjNjYzNlZjBlNzAwMGQxYjc0MjMzMTBjZTpyb2xlPXB1Ymxpc2hlciZzZXNzaW9uX2lkPTJfTVg0ME5UVTNNalEzTW41LU1UUTJNVFl6T0RnME1UUXlObjR2ZEcxWlZtaHFRV2cyUzJGelREVTBRbk5WYW1od1RrZC1VSDQmY3JlYXRlX3RpbWU9MTQ2MTYzODg0MyZub25jZT0wLjI2ODE5MTc3MDUyNDExMiZleHBpcmVfdGltZT0xNDYxNjQyNDMyJmNvbm5lY3Rpb25fZGF0YT0=';
+      var publisher;
+      /*var session = OT.initSession(apiKey, sessionId)
+        .on('streamCreated', function(event) {
+          session.subscribe(event.stream, document.getElementById('myvid'));
+        })
+        .connect(token, function(error) {
+          console.log("sessionConnected executed");
+          publisher = OT.initPublisher();
+          session.publish(publisher);
+        });
+*/
+/*        session.on("sessionConnected", function(sessionConnectEvent) {
+            console.log("sessionConnected executed");
+            session.publish(publisher);
+            // Code to be executed once the session is connected.
+        });
+        session.connect(token);*/
+
+
+        /*var session = OT.initSession(apiKey, sessionId);
+        session.on("sessionConnected", function sessionConnectHandler(event){
+            publisher = OT.initPublisher('publisher');
+            session.publish(publisher);
+        });
+
+        session.connect(token);
+
+        // Code to stop publishing to a session
+        function unpublish() {
+            session.unpublish(publisher);
+        }*/
+
+
+        var session = OT.initSession(apiKey, sessionId).on('streamCreated', function(event) {
+          session.subscribe(event.stream, document.getElementById('myvid'));
+        });
+        session.on("sessionConnected", function sessionConnectHandler(event){
+            publisher = OT.initPublisher('publisher');
+            session.publish(publisher);
+        });
+
+        session.connect(token);
+
+        //Code to stop publishing to a session
+        function disconnect() {
+            session.disconnect();
+        }
+        
+        session.on("sessionDisconnected", function(event){
+            console.log("sessionDisconnected event fired");
+            // Session has been disconnected. Include any clean up code here
+        });
+    </script>
+    <div id="publisherContainer"></div>
+
+    <br/>
+
+    <a href="javascript:disconnect()"> Disconnect </a>
+  </body>
+</html>

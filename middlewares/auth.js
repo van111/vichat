@@ -1,9 +1,7 @@
 "use strict";
 
-var express = require('express'),
-	app 	= express(),
-	Router 	= express.Router(),
-	_		= require('lodash'),
+var	_		= require('lodash'),
+	jwt		= require('jsonwebtoken'),
 	approot = require('app-root-path'),
 	Users	= require(approot+'/models/users');
 

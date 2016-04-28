@@ -1,18 +1,18 @@
 "use strict";
 
 var path 	= require('path'),
-	redis 	= require("redis"),
-    client 	= redis.createClient(),
+	//redis 	= require("redis"),
+    //client 	= redis.createClient(),
 	_		= require('lodash');
 
-client.on('error', function (err) {
+/*client.on('error', function (err) {
     console.log(err);
 });
 
 client.on('connect', function () {
     console.log("Redis successfully connected");
 });
-
+*/
 
 module.exports.fetch = function (headers) {
     if (headers && headers.authorization) {

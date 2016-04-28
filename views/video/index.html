@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+  <title>Open Tok</title>
+  <head>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <script src="https://static.opentok.com/v2/js/opentok.js" charset="utf-8"></script>
+    <script src="https://localhost:3000/socket.io/socket.io.js"></script>
+    <script charset="utf-8">
+      window.onload = function() {
+
+        var socket = io.connect('https://localhost:3001');
+
+        $('#btnCreate').click(function(){
+            var user = $('#username').val();
+            var room = $('#room').val();
+            socket.emit('join', {username:user, room:room});
+        });
+
+        
+        socket.on('message', function(data) {
+           console.log('Incoming message:', data);
+        });
+
+        socket.on('getSesToken', function (data) {
+          var apiKey = data.getSesToken.apiKey,
+              sessionId = data.getSesToken.sessionID,
+              token = data.getSesToken.token;
+
+          console.log(sessionId + " --- " + token)
+
+          var session = OT.initSession(apiKey, sessionId)
+            .on('streamCreated', function(event) {
+              console.log("New stream in the session: " + event.stream.streamId);
+              session.subscribe(event.stream, 'subscriber');
+            });
+
+          session.on("sessionConnected", function sessionConnectHandler(event){
+              publisher = OT.initPublisher('publisher');
+              session.publish(publisher);
+          });
+
+          session.connect(token, function(error) {
+            if (error) {
+              console.log("Error connecting: ", error.code, error.message);
+            } else {
+              console.log("Connected to the session.");
+            }
+          });
+          
+        });
+
+      }
+    </script>
+  </head>
+  <body>
+    <div id="publisher"></div>
+    <div id="subscriber"></div>
+    <br>
+    <hr>
+    <input type='text' id='username' placeholder="Your code name" />
+    <input type='text' id='room' placeholder="Your disired room name" />
+    <button id="btnCreate">Create</button>
+  </body>
+</html>
